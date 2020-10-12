@@ -1,0 +1,29 @@
+.App {
+  text-align: center;
+  display: flex;
+  min-height: 100% !important;
+  height: 100%;
+}
+
+.container {
+  height: 100%;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+.normal {
+  flex: 1;
+}
+
+.backBtn {
+  position: fixed;
+  top: 20;
+  left: 50;
+  color: lightblue;
+  height: 5rem;
+  width: 5rem;
+  text-align: left;
+}
