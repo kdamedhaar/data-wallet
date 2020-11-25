@@ -1,52 +1,66 @@
-import React from 'react'
-import { Container, Row, Col } from 'react-grid-system';
-import './Component.css'
-
+import React, { useEffect, useState } from "react";
+import { Container, Row, Col } from "react-grid-system";
+import "./Component.css";
+import classNames from "classnames";
 
 export default function Grid(props) {
+  const [data, setData] = useState(null);
 
-    function renderCard(data) {
-        return (
-            <div class="card">
-                <h3>{data.name}</h3>
-                <p>{data.description}</p>
-                <p>{data.price} OCEAN</p>
-                <p>{data.max} DT</p>
-                <p>Author - {data.author}</p>
-                <p><a href={data.sample}>Download Sample</a></p>
-            </div>
-        )
+  useEffect(() => {
+    async function processData(data) {
+      let datas = await Promise.all(
+        data.map(item => {
+          return { metadata: item.service[0], datatoken: item.dataTokenInfo };
+        })
+      );
+      setData(datas);
     }
+    processData(props.data);
+  }, []);
 
-    function renderRow(el1 = {}, el2 = {}, el3 = {}) {
-        return (
-            <Row>
-                <Col sm={4} lg={4}>
-                    {renderCard(el1)}
-                </Col>
-                <Col sm={4} lg={4}>
-                    {renderCard(el2)}
-                </Col>
-                <Col sm={4} lg={4}>
-                    {renderCard(el3)}
-                </Col>
-            </Row>
-        )
-    }
-
+  function renderCard(data) {
+    console.log(data);
+    let { datatoken, metadata } = data;
+    let { main, additionalInformation } = metadata.attributes;
+    let { name, author } = main;
+    let { description, tags } = additionalInformation;
+    let { address, cap, symbol, name: dtName, minter } = datatoken;
     return (
-        <>
+      <div className={classNames("card", "manage")}>
+        <h3>{name}</h3>
+        <h4>{author}</h4>
+        <h6>{tags ? tags.join(",") : ""}</h6>
+      </div>
+    );
+  }
 
-            <Container style={{ width: '80%' }}>
-                {props.data.map((item, i) => {
-                    if (((i + 1) % 3 == 0) && i <= props.data.length) {
-                        return renderRow(props.data[i], props.data[i + 1], props.data[i + 2])
-                    }
-                })}
-            </Container >
+  function renderRow(el1 = {}, el2 = {}, el3 = {}) {
+    return (
+      <Row>
+        <Col sm={4} lg={4}>
+          {renderCard(el1)}
+        </Col>
+        <Col sm={4} lg={4}>
+          {renderCard(el2)}
+        </Col>
+        <Col sm={4} lg={4}>
+          {renderCard(el3)}
+        </Col>
+      </Row>
+    );
+  }
 
-
-
-        </>
-    )
+  return (
+    <>
+      <Container style={{ width: "80%" }}>
+        {data
+          ? data.map((item, i) => {
+              if ((i + 1) % 3 == 0 && i <= data.length) {
+                return renderRow(data[i], data[i + 1], data[i + 2]);
+              }
+            })
+          : ""}
+      </Container>
+    </>
+  );
 }
