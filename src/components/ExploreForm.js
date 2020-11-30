@@ -1,18 +1,59 @@
 import React, { useState } from "react";
 import classNames from "classnames";
+import { Button, Form, FormGroup, Label, Input, Row } from "reactstrap";
+import { ConfigHelper } from "@oceanprotocol/lib";
 import { usePublish } from "@oceanprotocol/react";
 import Navbar from "./Navbar";
+import { Container } from "reactstrap";
+import TableContainer from "./TableContainer";
 import "./Component.css";
+
+const confighelper = new ConfigHelper();
+let config = confighelper.getConfig(
+  process.env.NETWORK,
+  process.env.INFURA_KEY
+);
 
 export default function CreateForm(props) {
   const [query, setQuery] = useState("");
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
+  async function processData(datasets) {
+    return await Promise.all(
+      datasets.map(item => {
+        var metadata = item.service[0];
+        if (metadata) {
+          if (metadata.attributes) {
+            var { name, author } = metadata.attributes.main;
+            var {
+              address,
+              cap,
+              symbol,
+              name: dtName,
+              minter
+            } = item.dataTokenInfo;
+            return {
+              name,
+              author,
+              address,
+              cap,
+              dtName,
+              minter,
+              symbol
+            };
+          }
+        }
+      })
+    );
+  }
+
   async function handleSearch() {
+    alert(query);
     setIsLoading(true);
     try {
-      const url = `https://aquarius.commons.oceanprotocol.com/api/v1/aquarius/assets/ddo/query?text=${query}&offset=500`;
+      let aquariusUrl = config.metadataCacheUri;
+      const url = `${aquariusUrl}/api/v1/aquarius/assets/ddo/query?text=${query}&offset=500`;
 
       let encodedUrl = encodeURI(url);
       const response = await fetch(encodedUrl, {
@@ -24,56 +65,59 @@ export default function CreateForm(props) {
       });
       const { results } = await response.json();
       console.log(results);
+      let processedData = await processData(results);
+      setData(processedData.slice());
       setIsLoading(false);
     } catch (error) {
       console.log(error);
     }
   }
 
-  return (
-    <>
-      <Navbar />
-      <div className={isLoading ? "disabled " : "visible form"}>
-        <h1 className="explore"> Explore Datatokens</h1>
-        <form>
-          <div className="formField">
-            <label className="formLabel" for="query">
-              {" "}
-              Search Query :{" "}
-            </label>
-            <br />
-            <input
-              className="formInput"
+  function renderForm() {
+    return (
+      <div className="pageContainer explorePage form">
+        <h1> Explore Datatokens</h1>
+        <Form>
+          <FormGroup className="exploreForm">
+            <Input
               type="text"
               id="query"
               name="query"
-              placeholder="Life of Pie"
+              placeholder="Enter Search Query "
               value={query}
               onChange={e => setQuery(e.target.value)}
             />
-            <br />
-          </div>
+          </FormGroup>
 
-          <div className="formField">
-            <button
-              className="btn"
-              type="submit"
-              onClick={e => handleSearch(e)}
-            >
+          <FormGroup>
+            <Button className="btn" onClick={e => handleSearch(e)}>
               {" "}
               Search{" "}
-            </button>
-            <button className="btn" onClick={() => {}}>
+            </Button>
+            <Button className="btn" onClick={() => {}}>
               {" "}
               Cancel{" "}
-            </button>
-          </div>
-        </form>
+            </Button>
+          </FormGroup>
+        </Form>
       </div>
-      <div className={isLoading ? "visible loaderContainer" : "disabled"}>
-        <div className={isLoading ? "loader" : "disabled"} />
-        <h1>Searching Datatokens..</h1>
+    );
+  }
+
+  function renderResults() {
+    return isLoading ? (
+      <div className="loaderContainer">
+        <div className="loader" />
+        <h1>Searching datatokens..</h1>
       </div>
-    </>
-  );
+    ) : data.length ? (
+      <Container>
+        <TableContainer data={data} />
+      </Container>
+    ) : (
+      ""
+    );
+  }
+
+  return isLoading ? renderResults() : renderForm();
 }

@@ -21,17 +21,19 @@ export default function Grid(props) {
   function renderCard(data) {
     console.log(data);
     let { datatoken, metadata } = data;
-    let { main, additionalInformation } = metadata.attributes;
-    let { name, author } = main;
-    let { description, tags } = additionalInformation;
-    let { address, cap, symbol, name: dtName, minter } = datatoken;
-    return (
-      <div className={classNames("card", "manage")}>
-        <h3>{name}</h3>
-        <h4>{author}</h4>
-        <h6>{tags ? tags.join(",") : ""}</h6>
-      </div>
-    );
+    if (metadata) {
+      let { main, additionalInformation } = metadata.attributes;
+      let { name, author } = main;
+      let { description, tags } = additionalInformation;
+      let { address, cap, symbol, name: dtName, minter } = datatoken;
+      return (
+        <div className={classNames("card", "manage")}>
+          <h3>{name}</h3>
+          <h4>{author}</h4>
+          <h6>{tags ? tags.join(",") : ""}</h6>
+        </div>
+      );
+    }
   }
 
   function renderRow(el1 = {}, el2 = {}, el3 = {}) {

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import classNames from "classnames";
+import { Button, Form, FormGroup, Label, Input, Col } from "reactstrap";
 import { usePublish } from "@oceanprotocol/react";
 import "./Component.css";
 
@@ -60,139 +61,133 @@ export default function CreateForm(props) {
 
   return (
     <>
-      <div className={isLoading ? "disabled" : "visible form"}>
-        <h1 className="create"> Create Datatokens</h1>
-        <form>
-          <div className="formField">
-            <label className="formLabel" for="title">
+      <div className="pageContainer form createPage fullPage">
+        <h1> Create Datatokens</h1>
+        <Form className="formContainer">
+          <FormGroup row>
+            <Label sm={4} for="title">
               {" "}
               Name :{" "}
-            </label>
-            <br />
-            <input
-              className="formInput"
-              type="text"
-              id="title"
-              name="title"
-              placeholder="Life of Pie"
-              value={title}
-              onChange={e => setTitle(e.target.value)}
-            />
-            <br />
-          </div>
-          <div className="formField">
-            <label className="formLabel" for="description">
+            </Label>
+            <Col sm={8}>
+              <Input
+                type="text"
+                id="title"
+                name="title"
+                placeholder="Life of Pie"
+                value={title}
+                onChange={e => setTitle(e.target.value)}
+              />
+            </Col>
+          </FormGroup>
+          <FormGroup row>
+            <Label sm={4} for="description">
               {" "}
               Description :
-            </label>
-            <br />
-            <textarea
-              rows="10"
-              columns="50"
-              type="text"
-              id="description"
-              name="description"
-              placeholder="My first book"
-              value={description}
-              onChange={e => setDescription(e.target.value)}
-            />
-            <br />
-          </div>
-          <div className="formField">
-            <label className="formLabel" for="bookurl">
+            </Label>
+            <Col sm={8}>
+              <Input
+                rows="10"
+                columns="50"
+                type="textarea"
+                id="description"
+                name="description"
+                placeholder="My first book"
+                value={description}
+                onChange={e => setDescription(e.target.value)}
+              />
+            </Col>
+          </FormGroup>
+          <FormGroup row>
+            <Label sm={4} for="bookurl">
               Data URL :
-            </label>
-            <br />
-            <input
-              className="formInput"
-              type="text"
-              id="bookurl"
-              name="bookurl"
-              placeholder="https://www.drive.google.com/mybook123.pdf"
-              value={bookurl}
-              onChange={e => setBookurl(e.target.value)}
-            />
-            <br />
-          </div>
-          <div className="formField">
-            <label className="formLabel" for="author">
+            </Label>
+            <Col sm={8}>
+              <Input
+                type="text"
+                id="bookurl"
+                name="bookurl"
+                placeholder="https://www.drive.google.com/mybook123.pdf"
+                value={bookurl}
+                onChange={e => setBookurl(e.target.value)}
+              />
+            </Col>
+          </FormGroup>
+          <FormGroup row>
+            <Label sm={4} for="author">
               Owner :
-            </label>
-            <br />
-            <input
-              className="formInput"
-              type="text"
-              id="author"
-              name="author"
-              placeholder="John Wick"
-              value={author}
-              onChange={e => setAuthor(e.target.value)}
-            />
-            <br />
-          </div>
-          <div className="formField">
-            <label className="formLabel" for="license">
+            </Label>
+            <Col sm={8}>
+              <Input
+                type="text"
+                id="author"
+                name="author"
+                placeholder="John Wick"
+                value={author}
+                onChange={e => setAuthor(e.target.value)}
+              />
+            </Col>
+          </FormGroup>
+          <FormGroup row>
+            <Label sm={4} for="license">
               License :
-            </label>
-            <br />
-            <input
-              className="formInput"
-              type="text"
-              id="license"
-              name="license"
-              placeholder="MIT"
-              value={license}
-              onChange={e => setLicense(e.target.value)}
-            />
-            <br />
-          </div>
-          <div className="formField">
-            <label className="formLabel" for="maxDownloads">
+            </Label>
+            <Col sm={8}>
+              <Input
+                type="text"
+                id="license"
+                name="license"
+                placeholder="MIT"
+                value={license}
+                onChange={e => setLicense(e.target.value)}
+              />
+            </Col>
+          </FormGroup>
+          <FormGroup row>
+            <Label sm={4} for="maxDownloads">
               Maximum Token Supply :
-            </label>
-            <br />
-            <input
-              className="formInput"
-              type="text"
-              id="maxDownloads"
-              name="maxDownloads"
-              placeholder="10"
-              value={maxDownloads}
-              onChange={e => setMaxDownloads(e.target.value)}
-            />
-            <br />
-          </div>
-          <div className="formField">
-            <label className="formLabel" for="price">
+            </Label>
+            <Col sm={8}>
+              <Input
+                type="text"
+                id="maxDownloads"
+                name="maxDownloads"
+                placeholder="10"
+                value={maxDownloads}
+                onChange={e => setMaxDownloads(e.target.value)}
+              />
+            </Col>
+          </FormGroup>
+          <FormGroup row>
+            <Label sm={4} for="price">
               Price :
-            </label>
-            <br />
-            <input
-              className="formInput"
-              type="text"
-              id="price"
-              name="price"
-              placeholder="1"
-              value={price}
-              onChange={e => setPrice(e.target.value)}
-            />
-            <br />
-          </div>
-          <div className="formField">
-            <button
+            </Label>
+            <Col sm={8}>
+              <Input
+                type="text"
+                id="price"
+                name="price"
+                placeholder="1"
+                value={price}
+                onChange={e => setPrice(e.target.value)}
+              />
+            </Col>
+          </FormGroup>
+          <FormGroup>
+            <Button
               className="btn"
               type="submit"
               onClick={e => publishAsset(e)}
             >
               {" "}
               Create{" "}
-            </button>
-            <button className="btn" onClick={() => {}}>
+            </Button>
+            <Button className="btn" onClick={() => {}}>
               {" "}
               Cancel{" "}
-            </button>
-          </div>
-        </form>
+            </Button>
+          </FormGroup>
+        </Form>
       </div>
       <div className={isLoading ? "visible loaderContainer" : "disabled"}>
         <div className={isLoading ? "loader" : "disabled"} />

@@ -1,3 +1,20 @@
+a {
+  text-decoration: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+button,
+label,
+th,
+td {
+  color: white;
+}
+
 .iconContainer {
   margin: 0 auto;
   min-height: 100% !important;
@@ -9,34 +26,50 @@
 }
 
 .manage {
-  color: lightblue;
+  color: #26547c;
 }
 
+.managePage {
+  background-color: #26547c;
+}
+
+.createPage {
+  background-color: #774c60;
+}
+
+.explorePage {
+  background-color: #774c60;
+}
+
+.fullPage {
+  min-height: 100% !important;
+}
 .manage:hover {
-  background-color: lightblue;
+  background-color: #26547c;
   color: white;
 }
 
 .create {
-  color: pink;
+  color: #774c60;
 }
 
 .create:hover {
-  background-color: pink;
+  background-color: #774c60;
   color: white;
 }
 
 .explore {
-  color: lightgray;
+  color: #b75d69;
 }
 
 .explore:hover {
-  background-color: lightgray;
+  background-color: #b75d69;
   color: white;
 }
 
 .container {
   height: 100%;
+  text-decoration: none;
 }
 
 .pointer {
@@ -72,19 +105,29 @@
 
 /***** form *********/
 
-.formContainer {
-  height: 100%;
-  min-height: 100% !important;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+form {
+  width: 100%;
+  margin: 0 auto;
 }
 
+.formGroup {
+  width: 100%;
+}
+
+.row {
+  margin: 0 !important;
+}
+
+.exploreForm {
+  padding-top: 2rem;
+  width: 50%;
+  margin: 0 auto;
+}
 input[type="text"] {
   padding: 1rem;
   margin: 1rem 0;
   box-sizing: border-box;
-  border: 2px solid pink;
+  border: 2px solid #774c60;
   border-radius: 4px;
   font-size: 1.2rem;
   font-weight: 500;
@@ -98,17 +141,16 @@ textarea {
   font-size: 1.2rem;
   font-weight: 500;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
-  border: 2px solid pink;
+  border: 2px solid #774c60;
 }
 label {
   font-size: 1.2rem;
   font-weight: 600;
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
-  color: pink;
+  font-family: Geneva, Tahoma, sans-serif;
 }
 .btn {
-  border: 1px solid pink;
-  color: pink;
+  border: 2px solid white;
+  color: white;
   margin: 1rem;
   padding: 1rem 2rem;
   text-align: center;
@@ -117,12 +159,11 @@ label {
   font-size: 1.5rem;
   font-weight: 800;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  background-color: white;
 }
 
 .btn:hover,
 .btn:active {
-  background-color: pink;
+  background-color: #774c60;
   color: white;
   text-decoration: none;
 }
@@ -131,7 +172,7 @@ label {
 .loader {
   border: 0.5rem solid #f3f3f3;
   border-radius: 50%;
-  border-top: 2px solid pink;
+  border-top: 2px solid #774c60;
   width: 8rem;
   height: 8rem;
   -webkit-animation: spin 2s linear infinite; /* Safari */
@@ -167,13 +208,29 @@ label {
   flex-direction: column;
 }
 
+.formContainer {
+  height: 100%;
+  width: 100%;
+  min-height: 100% !important;
+}
+
+.pageContainer {
+  padding-top: 6%;
+  width: 100%;
+}
+
 .navbarContainer {
-  margin: 10px;
-  height: 10%;
+  width: 100%;
+  padding-top: 2%;
+  margin-bottom: 3%;
+  padding-left: 2%;
+  padding-right: 2%;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   flex-direction: row;
+  position: fixed;
+  z-index: 1;
 }
 
 .accountContainer {

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, Fragment } from "react";
 import { ConfigHelper } from "@oceanprotocol/lib";
 import { OceanProvider, useOcean } from "@oceanprotocol/react";
 import classNames from "classnames";
@@ -9,6 +9,11 @@ import Manage from "./components/Manage";
 import Explore from "./components/Explore";
 import { Network } from "@oceanprotocol/lib/dist/node/datatokens/Network";
 import { NetworkMonitor } from "./components/NetworkMonitor";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import CreateForm from "./components/CreateForm";
+import ManageForm from "./components/ManageForm";
+import ExploreForm from "./components/ExploreForm";
+import Navbar from "./components/Navbar";
 
 const configRinkeby = new ConfigHelper().getConfig("rinkeby");
 
@@ -20,37 +25,43 @@ export const web3ModalOpts = {
 };
 
 export default function App() {
-  let initTheme = {
-    create: {
-      flex: "normal",
-      flip: false
-    },
-    manage: {
-      flex: "normal",
-      flip: false
-    },
-    explore: {
-      flex: "normal",
-      flip: false
-    }
-  };
-
-  const [theme, setTheme] = useState(initTheme);
-
   return (
     <OceanProvider initialConfig={configRinkeby} web3ModalOpts={web3ModalOpts}>
       <NetworkMonitor />
       <div className="App">
-        <FaArrowCircleLeft className={classNames("backBtn")} />
-        <div className={classNames("container", theme.create.flex)}>
-          <Create flex={setTheme} theme={theme} />
-        </div>
-        <div className={classNames("container", theme.manage.flex)}>
-          <Manage flex={setTheme} theme={theme} />
-        </div>
-        <div className={classNames("container", theme.explore.flex)}>
-          <Explore flex={setTheme} theme={theme} />
-        </div>
+        <Router>
+          <Switch>
+            <Route path="/create">
+              <Fragment>
+                <Navbar page="createPage" />
+                <CreateForm />
+              </Fragment>
+            </Route>
+            <Route path="/manage">
+              <Fragment>
+                <Navbar page="managePage" />
+                <ManageForm />
+              </Fragment>
+            </Route>
+            <Route path="/explore">
+              <Fragment>
+                <Navbar page="explorePage" />
+                <ExploreForm />
+              </Fragment>
+            </Route>
+            <Route path="/">
+              <div className={classNames("container")}>
+                <Create />
+              </div>
+              <div className={classNames("container")}>
+                <Manage />
+              </div>
+              <div className={classNames("container")}>
+                <Explore />
+              </div>
+            </Route>
+          </Switch>
+        </Router>
       </div>
     </OceanProvider>
   );

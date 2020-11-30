@@ -1,9 +1,14 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useState } from "react";
 import { useOcean } from "@oceanprotocol/react";
+import { Button, Popover, PopoverHeader, PopoverBody } from "reactstrap";
 import { useEffect } from "react";
 
 export default function Wallet() {
   const { ocean, connect, logout, accountId } = useOcean();
+
+  const [popoverOpen, setPopoverOpen] = useState(false);
+
+  const toggle = () => setPopoverOpen(!popoverOpen);
 
   const conn = async () => {
     await connect();
@@ -26,10 +31,26 @@ export default function Wallet() {
   return (
     <>
       {accountId ? (
-        <div>{accountId}</div>
+        <div>
+          <Button id="Popover1" type="button">
+            {accountId}
+          </Button>
+          <Popover
+            placement="bottom"
+            isOpen={popoverOpen}
+            target="Popover1"
+            toggle={toggle}
+          >
+            <PopoverHeader>Popover Title</PopoverHeader>
+            <PopoverBody>
+              Sed posuere consectetur est at lobortis. Aenean eu leo quam.
+              Pellentesque ornare sem lacinia quam venenatis vestibulum.
+            </PopoverBody>
+          </Popover>
+        </div>
       ) : (
         <div>
-          <button onClick={conn}>Connect</button>
+          <Button onClick={conn}>Connect</Button>
         </div>
       )}
     </>

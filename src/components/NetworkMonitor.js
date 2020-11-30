@@ -7,7 +7,7 @@ export const NetworkMonitor = () => {
   const { connect, web3Provider } = useOcean();
 
   const handleNetworkChanged = useCallback(
-    (chainId: number) => {
+    chainId => {
       const config = new ConfigHelper().getConfig(chainId);
       connect(config);
     },
