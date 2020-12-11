@@ -3,13 +3,14 @@ import { useOcean } from "@oceanprotocol/react";
 import { ConfigHelper } from "@oceanprotocol/lib";
 import { useEffect } from "react";
 
-export const NetworkMonitor = () => {
+export const NetworkMonitor = ({setConfig}) => {
   const { connect, web3Provider } = useOcean();
 
   const handleNetworkChanged = useCallback(
     chainId => {
       const config = new ConfigHelper().getConfig(chainId);
       connect(config);
+      setConfig(config)
     },
     [connect]
   );

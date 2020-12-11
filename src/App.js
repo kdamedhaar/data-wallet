@@ -9,14 +9,13 @@ import Manage from "./components/Manage";
 import Explore from "./components/Explore";
 import { Network } from "@oceanprotocol/lib/dist/node/datatokens/Network";
 import { NetworkMonitor } from "./components/NetworkMonitor";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, useParams } from "react-router-dom";
 import CreateForm from "./components/CreateForm";
 import ManageForm from "./components/ManageForm";
 import ExploreForm from "./components/ExploreForm";
 import Navbar from "./components/Navbar";
 
-const configRinkeby = new ConfigHelper().getConfig("rinkeby");
-
+const configRinkeby = new ConfigHelper().getConfig(process.env.REACT_APP_NETWORK);
 const providerOptions = {};
 
 export const web3ModalOpts = {
@@ -25,10 +24,14 @@ export const web3ModalOpts = {
 };
 
 export default function App() {
+
+  const [param, setParam] = useState("")
+  const [config, setConfig] = useState(configRinkeby)
+
   return (
-    <OceanProvider initialConfig={configRinkeby} web3ModalOpts={web3ModalOpts}>
-      <NetworkMonitor />
-      <div className="App">
+    <OceanProvider initialConfig={config} web3ModalOpts={web3ModalOpts}>
+      <NetworkMonitor setConfig={setConfig}/>
+      <div className={classNames("App")}>
         <Router>
           <Switch>
             <Route path="/create">

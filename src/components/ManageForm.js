@@ -82,16 +82,16 @@ export default function ManageForm() {
           <TableContainer data={datasets} />
         </Container>
       ) : (
-        ""
-      )
+            ""
+          )
     ) : (
-      <div className="loaderContainer">
-        <h1 className="manage">Connect your wallet..</h1>
-      </div>
-    );
+        <div className="loaderContainer">
+          <h1 className="manage">Connect your wallet..</h1>
+        </div>
+      );
   }
 
   return (
-    <div className="pageContainer managePage fullPage">{renderResults()}</div>
+    <div className="pageContainer fullPage managePage">{renderResults()}</div>
   );
 }

@@ -19,7 +19,7 @@ import {
   CardBody,
   CardTitle
 } from "reactstrap";
-import { Filter, DefaultColumnFilter } from "./filters";
+import { Filter, DefaultColumnFilter, SelectColumnFilter } from "./filters";
 
 export default function TableContainer({ data }) {
   const columns = useMemo(
@@ -92,7 +92,7 @@ export default function TableContainer({ data }) {
     {
       columns,
       data,
-      defaultColumn: { Filter: DefaultColumnFilter },
+      defaultColumn: { Filter: SelectColumnFilter },
       initialState: { pageIndex: 0, pageSize: 10 }
     },
     useFilters,
@@ -183,7 +183,7 @@ export default function TableContainer({ data }) {
               {pageIndex + 1} of {pageOptions.length}
             </strong>
           </Col>
-          <Col md={2}>
+          <Col md={4}>
             <Input
               type="number"
               min={1}
@@ -192,20 +192,6 @@ export default function TableContainer({ data }) {
               defaultValue={pageIndex + 1}
               onChange={onChangeInInput}
             />
-          </Col>
-          <Col md={2}>
-            <CustomInput
-              type="select"
-              value={pageSize}
-              onChange={onChangeInSelect}
-            >
-              >
-              {[10, 20, 30, 40, 50].map(pageSize => (
-                <option key={pageSize} value={pageSize}>
-                  Show {pageSize}
-                </option>
-              ))}
-            </CustomInput>
           </Col>
           <Col md={3}>
             <Button color="primary" onClick={nextPage} disabled={!canNextPage}>

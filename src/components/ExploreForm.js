@@ -8,10 +8,11 @@ import { Container } from "reactstrap";
 import TableContainer from "./TableContainer";
 import "./Component.css";
 
+
 const confighelper = new ConfigHelper();
 let config = confighelper.getConfig(
-  process.env.NETWORK,
-  process.env.INFURA_KEY
+  process.env.REACT_APP_NETWORK,
+  process.env.REACT_APP_INFURA_KEY
 );
 
 export default function CreateForm(props) {
@@ -49,10 +50,9 @@ export default function CreateForm(props) {
   }
 
   async function handleSearch() {
-    alert(query);
     setIsLoading(true);
     try {
-      let aquariusUrl = config.metadataCacheUri;
+      let aquariusUrl = config.metadataStoreUri;
       const url = `${aquariusUrl}/api/v1/aquarius/assets/ddo/query?text=${query}&offset=500`;
 
       let encodedUrl = encodeURI(url);
@@ -75,8 +75,8 @@ export default function CreateForm(props) {
 
   function renderForm() {
     return (
-      <div className="pageContainer explorePage form">
-        <h1> Explore Datatokens</h1>
+      <div className="pageContainer explorePage form fullPage">
+        <h1 style={{ color: 'white' }}> Explore Datatokens</h1>
         <Form>
           <FormGroup className="exploreForm">
             <Input
@@ -94,7 +94,7 @@ export default function CreateForm(props) {
               {" "}
               Search{" "}
             </Button>
-            <Button className="btn" onClick={() => {}}>
+            <Button className="btn" onClick={() => { }}>
               {" "}
               Cancel{" "}
             </Button>
@@ -104,20 +104,22 @@ export default function CreateForm(props) {
     );
   }
 
-  function renderResults() {
-    return isLoading ? (
+  function renderLoading() {
+    return (
       <div className="loaderContainer">
         <div className="loader" />
         <h1>Searching datatokens..</h1>
       </div>
-    ) : data.length ? (
+    )
+  }
+
+  function renderResults() {
+    return (
       <Container>
         <TableContainer data={data} />
       </Container>
-    ) : (
-      ""
-    );
+    )
   }
 
-  return isLoading ? renderResults() : renderForm();
+  return <div className="pageContainer">{isLoading ? renderLoading() : (data.length ? renderResults() : renderForm())}</div>
 }

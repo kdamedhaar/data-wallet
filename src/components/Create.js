@@ -12,7 +12,7 @@ export default function Create(props) {
           <div className="iconContainer">
             <FaTools className={classNames("icon")} />
             <h1>Create</h1>
-            <p className={classNames("subtitle")}>Create data tokens</p>
+            <p className={classNames("subtitle", "create")}>Create data tokens</p>
           </div>
         </div>
       </Link>

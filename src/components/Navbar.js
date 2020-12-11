@@ -6,10 +6,11 @@ import { Link } from "react-router-dom";
 import "./Component.css";
 
 export default function Navbar(props) {
+
   return (
     <div className={classNames("navbarContainer", props.page)}>
       <Link to="/">
-        <h4>Data Wallet</h4>
+        <h3>Data Wallet</h3>
       </Link>
       <Wallet />
     </div>

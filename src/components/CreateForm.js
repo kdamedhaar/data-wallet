@@ -61,8 +61,8 @@ export default function CreateForm(props) {
 
   return (
     <>
-      <div className="pageContainer form createPage fullPage">
-        <h1> Create Datatokens</h1>
+      <div className="pageContainer createPage fullPage form">
+        <h1 style={{ color: 'white' }}> Create Datatokens</h1>
         <Form className="formContainer">
           <FormGroup row>
             <Label sm={4} for="title">
@@ -182,7 +182,7 @@ export default function CreateForm(props) {
               {" "}
               Create{" "}
             </Button>
-            <Button className="btn" onClick={() => {}}>
+            <Button className="btn" onClick={() => { }}>
               {" "}
               Cancel{" "}
             </Button>
