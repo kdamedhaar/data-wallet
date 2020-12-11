@@ -1,7 +1,7 @@
-a {
+.container a,
+.container a:hover {
   text-decoration: none;
 }
-
 
 h2,
 h3,
@@ -15,6 +15,20 @@ td {
   color: white;
 }
 
+.brand {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+a.brand,
+a.brand:hover {
+  text-decoration: none;
+}
+
+.title {
+  margin-top: 25px;
+}
 .iconContainer {
   margin: 0 auto;
   min-height: 100% !important;
@@ -38,7 +52,7 @@ td {
 }
 
 .explorePage {
-  background-color: #774c60;
+  background-color: #b75d69;
 }
 
 .fullPage {
@@ -124,7 +138,7 @@ form {
   width: 50%;
   margin: 0 auto;
 }
-input[type="text"] {
+input[type='text'] {
   padding: 1rem;
   margin: 1rem 0;
   box-sizing: border-box;
@@ -153,13 +167,13 @@ label {
   border: 2px solid white;
   color: white;
   margin: 1rem;
-  padding: 1rem 2rem;
+  padding: 1rem 5rem;
   text-align: center;
   text-decoration: none;
   display: inline-block;
   font-size: 1.5rem;
   font-weight: 800;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .btn:hover,
@@ -169,46 +183,7 @@ label {
   text-decoration: none;
 }
 
-/***** loader *********/
-.loader {
-  border: 0.5rem solid #f3f3f3;
-  border-radius: 50%;
-  border-top: 2px solid #774c60;
-  width: 8rem;
-  height: 8rem;
-  -webkit-animation: spin 2s linear infinite; /* Safari */
-  animation: spin 2s linear infinite;
-}
-
-/* Safari */
-@-webkit-keyframes spin {
-  0% {
-    -webkit-transform: rotate(0deg);
-  }
-  100% {
-    -webkit-transform: rotate(360deg);
-  }
-}
-
-@keyframes spin {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
-
-.loaderContainer {
-  margin: 0 auto;
-  min-height: 100% !important;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-}
-
+/***** containers *****/
 .formContainer {
   height: 100%;
   width: 100%;
@@ -216,11 +191,22 @@ label {
 }
 
 .pageContainer {
-  padding-top: 6%;
   width: 100%;
 }
 
 .navbarContainer {
+  width: 100%;
+  padding-top: 2%;
+  margin-bottom: 3%;
+  padding-left: 2%;
+  padding-right: 2%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: row;
+}
+
+.navbarContainerBkup {
   width: 100%;
   padding-top: 2%;
   margin-bottom: 3%;
@@ -241,15 +227,13 @@ label {
 
 /* Style the counter cards */
 .card {
-  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
   padding: 16px;
   text-align: left;
-  background-color: white;
   margin-bottom: 2px;
+  border: none;
 }
 
 .card:hover {
-  background-color: lightblue;
   color: white;
 }
 
@@ -259,4 +243,9 @@ label {
 
 .card p {
   font-size: 1.3rem;
+}
+
+/*****  spinner ****/
+.spinner {
+  margin-top: 50px;
 }
